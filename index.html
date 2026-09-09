@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Avi Andargie</title>
-<meta name="description" content="Six things I built: an event marketplace, a castle-siege game, a reggae game, a guitar teacher that listens, a farm's work plan, and a ministry programme's budget system.">
+<meta name="description" content="Six things I built: an event marketplace, a castle-siege game, a reggae game, a guitar teacher that listens, a farm's work plan, and a national programme's budget system.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
@@ -182,7 +182,9 @@ p{margin:0}
 .foot{background:var(--slab);color:var(--slab-ink);padding:80px 0 34px;margin-top:20px}
 .foot h2{font-size:clamp(34px,5.8vw,84px);font-weight:800;font-stretch:82%;line-height:.99;letter-spacing:-.038em}
 .foot h2 em{font-style:normal;color:var(--sun)}
-.foot p.sub{margin-top:20px;max-width:52ch;font-size:17.5px;opacity:.82}
+.foot p.sub{margin-top:20px;max-width:56ch;font-size:17px;opacity:.84;line-height:1.6}
+.foot p.sub + p.sub{margin-top:14px}
+.foot p.sub:last-of-type{opacity:1;font-weight:500}
 .foot .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .foot .btn{border-color:color-mix(in srgb,var(--slab-ink) 50%,transparent);color:var(--slab-ink)}
 .foot .btn:hover{background:var(--slab-ink);color:var(--slab)}
@@ -234,7 +236,7 @@ p{margin:0}
     <a class="idxrow" href="#shanzia"><span class="no">03</span><span class="nm">Shani Sound System</span><span class="md">iOS</span><span class="pf">474 tests · 51 suites</span><span class="st"><i></i>On device</span></a>
     <a class="idxrow" href="#tabim"><span class="no">04</span><span class="nm">Tabim</span><span class="md">Audio</span><span class="pf">602 tests · C++ core</span><span class="st"><i></i>In build</span></a>
     <a class="idxrow" href="#farm"><span class="no">05</span><span class="nm">The Farm</span><span class="md">Consulting</span><span class="pf">15-tab work plan</span><span class="st"><i></i>Delivered</span></a>
-    <a class="idxrow" href="#kasa"><span class="no">06</span><span class="nm">Kasa Budget System</span><span class="md">Systems</span><span class="pf">17 tabs → 1 workbook</span><span class="st"><i></i>In review</span></a>
+    <a class="idxrow" href="#budget"><span class="no">06</span><span class="nm">National Programme Budget</span><span class="md">Systems</span><span class="pf">17 tabs → 1 workbook</span><span class="st"><i></i>In review</span></a>
   </nav>
   <p class="avail"><i></i>Open to student positions and project work · Be'er Sheva or remote</p>
 </div>
@@ -410,9 +412,9 @@ p{margin:0}
   </div>
 </div></article>
 
-<!-- 06 KASA -->
-<article class="case flip" id="kasa"><div class="wrap">
-  <div class="top"><span class="num">06</span><h3>Kasa Budget System</h3><span class="tag">Ministry of Health</span><span class="tag">Awaiting sign-off</span></div>
+<!-- 06 NATIONAL PROGRAMME BUDGET -->
+<article class="case flip" id="budget"><div class="wrap">
+  <div class="top"><span class="num">06</span><h3>National Programme Budget</h3><span class="tag">Ministry of Health</span><span class="tag">Awaiting sign-off</span></div>
   <div class="body">
     <div class="text">
       <p class="kicker">A national health programme ran its budget across five spreadsheets and seventeen tabs. <b>Ask how much was planned in 2024 and you got four different answers.</b></p>
@@ -422,20 +424,20 @@ p{margin:0}
         <li><b>Four money states</b>: planned, approved, committed, paid</li>
         <li><b>The number that matters</b>: money committed but not yet paid, the exposure nobody was tracking</li>
         <li><b>Reports specified as views, not new files</b>: one export per stakeholder, generated from the same rows</li>
-        <li><b>Written for a non-technical director</b>: plain-language spec, flowchart, simulation guide, and a walkthrough script to read to her</li>
-        <li><b>Staged rollout</b>: skeleton, her sign-off, a pilot year, then migrate the history</li>
+        <li><b>Written for a non-technical owner</b>: plain-language spec, flowchart, simulation guide, and a walkthrough script to read aloud</li>
+        <li><b>Staged rollout</b>: skeleton, sign-off, a pilot year, then migrate the history</li>
       </ul>
-      <p class="role"><b>My role:</b> digital and technology lead on a three-person team, a scholarship position. Adoption is the whole job: the system is only real once the person who owns it trusts it.</p>
+      <p class="role"><b>My role:</b> digital and technology lead on a three-person team, a scholarship position. My counterpart runs a national programme and is not a technical person, which is the whole design brief: the system is only real once the person who owns it trusts it.</p>
     </div>
     <div class="stack">
-      <div class="sheet"><img src="img/kasa_dashboard.jpg" alt="The Kasa dashboard: totals for planned, approved, committed and paid, a utilisation percentage, the committed-but-unpaid exposure, and a colour legend for each status" loading="lazy" width="1300" height="725"></div>
-      <div class="sheet"><img src="img/kasa_tasks.jpg" alt="The tasks and alerts tab: each deadline linked to a budget line, with the days remaining computed automatically" loading="lazy" width="1300" height="443"></div>
-      <p class="caption">The dashboard nobody types into · the deadlines, counting themselves down.</p>
+      <div class="sheet"><img src="img/budget_dashboard.jpg" alt="The dashboard: totals for planned, approved, committed and paid, a utilisation percentage, the committed-but-unpaid exposure, and a colour legend for each status" loading="lazy" width="1300" height="725"></div>
+      <div class="sheet"><img src="img/budget_tasks.jpg" alt="The tasks and alerts tab: each deadline linked to a budget line, with the days remaining computed automatically" loading="lazy" width="1300" height="443"></div>
+      <p class="caption">The dashboard nobody types into · the deadlines, counting themselves down. Figures blurred.</p>
     </div>
   </div>
   <div class="fullshot">
-    <div class="sheet"><img src="img/kasa_lines.jpg" alt="The budget-lines tab: one row per budget line with its identifier, programme, year, activity, executing arm and a colour-coded status, followed by the planned, approved, committed and paid columns side by side" loading="lazy" width="1862" height="548"></div>
-    <p class="caption">The heart of it: one row per budget line, the four money states side by side, the status colouring itself. Loaded with a simulated year; the owner column is blanked for this page.</p>
+    <div class="sheet"><img src="img/budget_lines.jpg" alt="The budget-lines tab: one row per budget line with its identifier, programme, year, activity, executing arm and a colour-coded status, followed by the planned, approved, committed and paid columns side by side" loading="lazy" width="1862" height="548"></div>
+    <p class="caption">The heart of it: one row per budget line, the four money states side by side, the status colouring itself. Amounts blurred and the owner column blanked for this page.</p>
   </div>
 </div></article>
 </section>
@@ -447,7 +449,7 @@ p{margin:0}
   </div>
   <div class="steps reveal">
     <div class="step"><div class="k">01</div><h3>Work the job first</h3><p>No recommendation before I have stood where the users stand. I want to know what a normal Tuesday looks like before I touch it.</p><div class="ex"><b>The Farm:</b> I worked the branches myself before mapping a single process.</div></div>
-    <div class="step"><div class="k">02</div><h3>Write the spec</h3><p>Plain language, decisions listed, open questions named. A document the least technical person in the room can argue with.</p><div class="ex"><b>Kasa:</b> the spec opens by saying it is a proposal, not a decision.</div></div>
+    <div class="step"><div class="k">02</div><h3>Write the spec</h3><p>Plain language, decisions listed, open questions named. A document the least technical person in the room can argue with.</p><div class="ex"><b>The budget system:</b> the spec opens by saying it is a proposal, not a decision.</div></div>
     <div class="step"><div class="k">03</div><h3>Direct, review, verify</h3><p>The keystrokes are mostly an AI's. The architecture, the review and the responsibility are mine, and nothing lands until I can show it working.</p><div class="ex"><b>Everywhere:</b> a claim is only done once a test, a screenshot or a database query backs it.</div></div>
     <div class="step"><div class="k">04</div><h3>Measure, then decide</h3><p>When something feels wrong I turn it into a number before I touch it. Opinions lose to a distribution.</p><div class="ex"><b>PARTYAH:</b> 95 smoke checks run against the live backend before a deploy is allowed.</div></div>
   </div>
@@ -456,7 +458,9 @@ p{margin:0}
 <footer class="foot" id="contact"><div class="wrap">
   <p class="eyebrow" style="color:inherit;opacity:.55">Contact</p>
   <h2 style="margin-top:12px">Serious about the work.<br><em>Light about everything else.</em></h2>
-  <p class="sub">If something here is close to a problem you have, write to me. I am a student, I build every week, and I would rather be shown a real problem than a job description.</p>
+  <p class="sub">Yes, I am serious and I came to work. In good spirits, though. I come to listen first: what is actually needed here, and what it will really take once you count the budget, the calendar, and the skill of the people who have to use the thing on an ordinary Tuesday. Then we shape it around them. Tailor-made for whoever is going to use it, not lifted off a shelf. That part I am good at.</p>
+  <p class="sub">I love art, and I try to bring creativity into every field I touch, next to the analytical and academic side I picked up in the degree and in the work I have done. The two are not in tension. The systems people keep using are the ones somebody cared about.</p>
+  <p class="sub">If something here is close to a problem you have, write to me. I would rather be shown a real problem than a job description.</p>
   <div class="row">
     <a class="btn sun" href="mailto:aviandargie@gmail.com">aviandargie@gmail.com</a>
     <a class="btn" href="https://www.linkedin.com/in/avi-andargie-70417a3a0/" target="_blank" rel="noopener">LinkedIn</a>
