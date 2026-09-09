@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avi Andargie</title>
+<meta name="description" content="Six things I built: an event marketplace, a castle-siege game, a reggae game, a guitar teacher that listens, a farm's work plan, and a ministry programme's budget system.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{
+  --bg:#F2F3F7; --bg2:#FFFFFF; --ink:#0D1017; --ink2:#3A3F4D; --mute:#6A7080;
+  --line:#D7DAE3; --hair:#E4E6EE;
+  --accent:#1F3BE0; --accent-ink:#FFFFFF; --live:#0B7F51; --sun:#FFD23F; --sun-ink:#1A1400;
+  --shadow:0 18px 44px -22px rgba(13,16,23,.42);
+  --slab:#0D1017; --slab-ink:#F2F3F7; --bezel:#0D1017;
+  --display:'Archivo',ui-sans-serif,system-ui,"Helvetica Neue",sans-serif;
+  --body:'Instrument Sans',ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B0E14; --bg2:#141822; --ink:#F2F3F7; --ink2:#C4C9D6; --mute:#8B92A5;
+    --line:#262C3A; --hair:#1E2430;
+    --accent:#8098FF; --accent-ink:#0A0D14; --live:#3FD69A; --sun:#FFD23F; --sun-ink:#1A1400;
+    --shadow:0 18px 44px -22px rgba(0,0,0,.8);
+    --slab:#161B26; --slab-ink:#F2F3F7; --bezel:#39415442;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B0E14; --bg2:#141822; --ink:#F2F3F7; --ink2:#C4C9D6; --mute:#8B92A5;
+  --line:#262C3A; --hair:#1E2430;
+  --accent:#8098FF; --accent-ink:#0A0D14; --live:#3FD69A; --sun:#FFD23F; --sun-ink:#1A1400;
+  --shadow:0 18px 44px -22px rgba(0,0,0,.8);
+  --slab:#161B26; --slab-ink:#F2F3F7; --bezel:#39415442;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:78px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.02em}
+p{margin:0}
+.wrap{width:min(1200px,calc(100% - 44px));margin-inline:auto}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.tab{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.brand{font-family:var(--display);font-stretch:100%;font-weight:700;font-size:16px;letter-spacing:.01em;text-decoration:none;display:flex;align-items:center;gap:9px}
+.brand i{width:9px;height:9px;background:var(--accent);display:inline-block}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:24px}
+.nav ul a{text-decoration:none;font-size:14.5px;font-weight:500;color:var(--ink2)}
+.nav ul a:hover{color:var(--accent)}
+@media (max-width:760px){.nav ul{display:none}}
+
+/* hero */
+.hero{padding:62px 0 0}
+.hero h1{font-weight:800;font-stretch:84%;font-size:clamp(42px,6.8vw,94px);line-height:.96;letter-spacing:-.032em;max-width:17ch;padding-bottom:.04em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.herorow{display:grid;grid-template-columns:minmax(0,54ch) auto;gap:40px;align-items:end;margin-top:26px}
+.hero .lede{font-size:clamp(16.5px,1.35vw,19.5px);color:var(--ink2)}
+.hero .lede b{color:var(--ink);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;gap:9px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 17px;font-family:var(--body);font-weight:600;font-size:14.5px;text-decoration:none;border:1.5px solid var(--ink);transition:transform .14s,background .14s,color .14s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn.ghost{background:transparent}
+@media (max-width:820px){.herorow{grid-template-columns:1fr;gap:24px;align-items:start}}
+.up{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+.up.d1{animation-delay:.06s}.up.d2{animation-delay:.12s}.up.d3{animation-delay:.18s}
+@keyframes rise{from{transform:translateY(13px);opacity:.001}to{transform:none;opacity:1}}
+
+/* index */
+.index{margin-top:46px;border-top:1.5px solid var(--ink);animation:rise .6s cubic-bezier(.2,.8,.2,1) .18s both}
+.idxrow{display:grid;grid-template-columns:2.4rem minmax(0,1fr) 7rem 12rem 9rem;gap:20px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--hair)}
+.index .head{padding:9px 0;border-bottom:1px solid var(--hair)}
+.index .head span{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute)}
+.index .sth{text-align:right}
+.index a{text-decoration:none;transition:background .16s,padding .16s}
+.index a:hover{background:var(--bg2);padding-inline:10px}
+.index .no{font-family:var(--mono);font-size:12px;color:var(--mute)}
+.index .nm{font-family:var(--display);font-weight:700;font-stretch:87%;font-size:clamp(18px,1.7vw,24px);line-height:1.12;letter-spacing:-.02em}
+.index a:hover .nm{color:var(--accent)}
+.index .md,.index .pf{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--ink2);font-variant-numeric:tabular-nums}
+.index .md{text-transform:uppercase;color:var(--mute)}
+.index .st{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:7px;justify-content:flex-end}
+.index .st i{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block;flex:none}
+.index .st.on{color:var(--live)}
+.avail{display:flex;align-items:center;gap:9px;padding:14px 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--ink2)}
+.avail i{width:7px;height:7px;border-radius:50%;background:var(--live);display:inline-block;flex:none}
+@media (max-width:1080px){.idxrow{grid-template-columns:2.4rem minmax(0,1fr) 12rem 9rem}.index .md{display:none}}
+@media (max-width:720px){.idxrow{grid-template-columns:2rem minmax(0,1fr);row-gap:5px}.index .pf,.index .sth{display:none}.index .st{grid-column:2;justify-content:flex-start}}
+
+/* ticker */
+.ticker{border-block:1.5px solid var(--ink);overflow:hidden;white-space:nowrap;padding:11px 0;margin-top:42px;background:var(--bg2)}
+.ticker .track{display:inline-flex;gap:32px;animation:scroll 52s linear infinite;padding-right:32px}
+.ticker span{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2)}
+.ticker span::after{content:"/";margin-left:32px;color:var(--mute);opacity:.5}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* sections */
+.sec{padding:76px 0}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:end;margin-bottom:38px}
+.sec-head h2{font-size:clamp(30px,3.6vw,50px);font-weight:700;font-stretch:88%;line-height:1.04;letter-spacing:-.028em}
+.sec-head p{color:var(--ink2);font-size:17.5px;max-width:50ch}
+@media (max-width:860px){.sec-head{grid-template-columns:1fr;gap:16px}}
+
+/* proof */
+.proof{display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--ink);background:var(--bg2)}
+.proof > div{padding:22px 20px;border-right:1.5px solid var(--ink)}
+.proof > div:last-child{border-right:0}
+.proof .n{font-family:var(--display);font-stretch:90%;font-weight:700;font-size:clamp(28px,3.2vw,42px);line-height:1;letter-spacing:-.03em}
+.proof .l{font-size:13.5px;color:var(--ink2);margin-top:9px;line-height:1.35}
+.proof .s{font-family:var(--mono);font-size:10.5px;color:var(--mute);margin-top:8px;letter-spacing:.07em;text-transform:uppercase}
+@media (max-width:900px){.proof{grid-template-columns:repeat(2,1fr)}.proof > div{border-bottom:1.5px solid var(--ink)}.proof > div:nth-child(2n){border-right:0}.proof > div:nth-last-child(-n+2){border-bottom:0}}
+
+/* how */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--ink);background:var(--bg2)}
+.step{padding:24px;border-right:1.5px solid var(--ink)}
+.step:last-child{border-right:0}
+.step .k{font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:600;letter-spacing:.12em}
+.step h3{font-size:21px;font-weight:700;font-stretch:100%;line-height:1.2;letter-spacing:-.015em;margin:11px 0 9px}
+.step p{color:var(--ink2);font-size:14.5px}
+.step .ex{margin-top:14px;padding-top:12px;border-top:1px solid var(--hair);font-size:13.5px;color:var(--ink2)}
+.step .ex b{font-weight:600;color:var(--ink)}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}.step{border-bottom:1.5px solid var(--ink)}.step:nth-child(2n){border-right:0}.step:nth-last-child(-n+2){border-bottom:0}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}.step{border-right:0;border-bottom:1.5px solid var(--ink)}.step:last-child{border-bottom:0}}
+
+/* cases */
+.case{padding:60px 0;border-top:1.5px solid var(--ink)}
+.case .top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.case .num{font-family:var(--mono);font-size:12px;color:var(--mute)}
+.case h3{font-size:clamp(30px,4.4vw,56px);font-weight:800;font-stretch:85%;line-height:1.02;letter-spacing:-.035em}
+.case .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border:1.5px solid var(--line);color:var(--ink2)}
+.case .tag.live{border-color:var(--live);color:var(--live)}
+.case .body{display:grid;grid-template-columns:.92fr 1.08fr;gap:46px;align-items:start;margin-top:20px}
+.case.flip .body{grid-template-columns:1.08fr .92fr}
+.case.flip .body .text{order:2}
+.case .kicker{font-size:19.5px;color:var(--ink);font-weight:500;max-width:44ch;line-height:1.35}
+.case .kicker b{font-weight:600;box-shadow:inset 0 -.5em 0 color-mix(in srgb,var(--accent) 15%,transparent)}
+.case .text p.d{color:var(--ink2);margin-top:15px;max-width:54ch;font-size:16px}
+.facts{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:9px 20px}
+.facts li{font-size:14px;padding-left:15px;position:relative;color:var(--ink2);line-height:1.45}
+.facts li::before{content:"";position:absolute;left:0;top:.5em;width:6px;height:6px;background:var(--accent)}
+.facts li b{color:var(--ink);font-weight:600}
+.role{margin-top:20px;padding:13px 0 0;border-top:1px solid var(--hair);font-size:14px;color:var(--ink2)}
+.role b{color:var(--ink);font-weight:600}
+.links{margin-top:16px;display:flex;gap:16px;flex-wrap:wrap}
+.links a{font-weight:600;font-size:15px;text-decoration:none;border-bottom:2px solid var(--accent);padding-bottom:1px}
+.links a:hover{color:var(--accent)}
+@media (max-width:900px){.case .body,.case.flip .body{grid-template-columns:1fr;gap:34px}.case.flip .body .text{order:0}.facts{grid-template-columns:1fr}}
+
+/* shots */
+.phones{display:grid;gap:12px;align-items:start}
+.phones.c4{grid-template-columns:repeat(2,1fr)}
+.phone{border:5px solid var(--bezel);border-radius:22px;overflow:hidden;background:var(--slab);box-shadow:var(--shadow);transition:transform .22s ease}
+.phone:hover{transform:translateY(-7px)}
+.phone img{border-radius:17px;width:100%}
+.caption{font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:12px;letter-spacing:.03em;line-height:1.5}
+.wide{border:1.5px solid var(--line);box-shadow:var(--shadow);overflow:hidden;background:var(--slab);transition:transform .22s}
+.wide:hover{transform:translateY(-5px)}
+.wide img{width:100%}
+.stack{display:grid;gap:12px}
+.stack .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sheet{border:1.5px solid var(--line);background:#fff;box-shadow:var(--shadow);overflow:hidden}
+.fullshot{margin-top:30px}
+.fullshot .sheet{overflow-x:auto}
+.fullshot .sheet img{min-width:760px}
+.sheet img{width:100%}
+.beforeafter{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;margin-top:20px;padding-top:18px;border-top:1px solid var(--hair)}
+.beforeafter .phone{border-width:4px;border-radius:16px}
+.beforeafter .phone img{border-radius:12px}
+.beforeafter p{font-size:14px;color:var(--ink2)}
+.beforeafter p b{color:var(--ink);font-weight:600}
+@media (max-width:640px){.stack .row2{grid-template-columns:1fr}}
+
+/* footer */
+.foot{background:var(--slab);color:var(--slab-ink);padding:80px 0 34px;margin-top:20px}
+.foot h2{font-size:clamp(34px,5.8vw,84px);font-weight:800;font-stretch:82%;line-height:.99;letter-spacing:-.038em}
+.foot h2 em{font-style:normal;color:var(--sun)}
+.foot p.sub{margin-top:20px;max-width:52ch;font-size:17.5px;opacity:.82}
+.foot .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.foot .btn{border-color:color-mix(in srgb,var(--slab-ink) 50%,transparent);color:var(--slab-ink)}
+.foot .btn:hover{background:var(--slab-ink);color:var(--slab)}
+.foot .btn.sun{background:var(--sun);color:var(--sun-ink);border-color:var(--sun)}
+.foot .sig{margin-top:54px;padding-top:20px;border-top:1px solid color-mix(in srgb,var(--slab-ink) 22%,transparent);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:11.5px;color:color-mix(in srgb,var(--slab-ink) 62%,transparent)}
+.foot :focus-visible{outline-color:var(--sun)}
+
+.reveal{transform:translateY(18px);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{transform:none}
+@media (prefers-reduced-motion: reduce){
+  .up,.index{animation:none}
+  .index a{transition:none}
+  .index a:hover{padding-inline:0}
+  .ticker .track{animation:none}
+  .reveal{transform:none;transition:none}
+  html{scroll-behavior:auto}
+  .phone:hover,.wide:hover,.btn:hover{transform:none}
+}
+</style>
+
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="#top"><i></i>AVI ANDARGIE</a>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#how">Approach</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <p class="eyebrow up">Avi Andargie · Industrial Engineering &amp; Management, Ben-Gurion University · Be'er Sheva</p>
+  <h1 class="up d1" style="margin-top:18px">I build the thing, <em>then</em> I prove it works.</h1>
+  <div class="herorow">
+    <p class="lede up d2">Six projects from the past year: two apps, two games, and two organisations I designed new planning and budget systems for. I write the specification and the rules, direct an AI-assisted implementation, then review, debug and verify every line that ships. <b>Every screenshot below is a running build, not a mockup.</b></p>
+    <div class="cta up d3">
+      <a class="btn primary" href="#work">See the work</a>
+      <a class="btn ghost" href="mailto:aviandargie@gmail.com">Email</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/avi-andargie-70417a3a0/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn ghost" href="https://github.com/underGIE" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+
+  <nav class="index" aria-label="Project index">
+    <div class="idxrow head"><span>№</span><span>Six projects · one year</span><span class="md">Medium</span><span class="pf">Proof</span><span class="sth">Status</span></div>
+    <a class="idxrow" href="#partyah"><span class="no">01</span><span class="nm">PARTYAH</span><span class="md">Mobile</span><span class="pf">726 tests · 47 suites</span><span class="st on"><i></i>Live demo</span></a>
+    <a class="idxrow" href="#shinobi"><span class="no">02</span><span class="nm">Shinobi Blast</span><span class="md">Game</span><span class="pf">73 headless suites</span><span class="st on"><i></i>Playable</span></a>
+    <a class="idxrow" href="#shanzia"><span class="no">03</span><span class="nm">Shani Sound System</span><span class="md">iOS</span><span class="pf">474 tests · 51 suites</span><span class="st"><i></i>On device</span></a>
+    <a class="idxrow" href="#tabim"><span class="no">04</span><span class="nm">Tabim</span><span class="md">Audio</span><span class="pf">602 tests · C++ core</span><span class="st"><i></i>In build</span></a>
+    <a class="idxrow" href="#farm"><span class="no">05</span><span class="nm">The Farm</span><span class="md">Consulting</span><span class="pf">15-tab work plan</span><span class="st"><i></i>Delivered</span></a>
+    <a class="idxrow" href="#kasa"><span class="no">06</span><span class="nm">Kasa Budget System</span><span class="md">Systems</span><span class="pf">17 tabs → 1 workbook</span><span class="st"><i></i>In review</span></a>
+  </nav>
+  <p class="avail"><i></i>Open to student positions and project work · Be'er Sheva or remote</p>
+</div>
+<div class="ticker" aria-hidden="true"><div class="track">
+  <span>TypeScript</span><span>React Native</span><span>Supabase</span><span>PostgreSQL</span><span>Swift</span><span>C++ audio</span><span>Godot</span><span>Python</span><span>SQL</span><span>Claude Code</span><span>Google Apps Script</span><span>Airtable</span><span>Make</span><span>Postman</span><span>GitHub Actions</span><span>Jest</span><span>XCTest</span><span>Base44</span><span>Monday.com</span>
+  <span>TypeScript</span><span>React Native</span><span>Supabase</span><span>PostgreSQL</span><span>Swift</span><span>C++ audio</span><span>Godot</span><span>Python</span><span>SQL</span><span>Claude Code</span><span>Google Apps Script</span><span>Airtable</span><span>Make</span><span>Postman</span><span>GitHub Actions</span><span>Jest</span><span>XCTest</span><span>Base44</span><span>Monday.com</span>
+</div></div>
+</header>
+
+<section class="sec" style="padding:54px 0 0"><div class="wrap">
+  <div class="proof reveal tab">
+    <div><div class="n">1,802</div><div class="l">automated tests across the three tested codebases</div><div class="s">726 + 602 + 474, last run green</div></div>
+    <div><div class="n">29</div><div class="l">database migrations live on a production Postgres</div><div class="s">row-level security on all 23 tables</div></div>
+    <div><div class="n">2</div><div class="l">projects anyone can open right now, no install</div><div class="s">partyah · shinobi blast</div></div>
+    <div><div class="n">5 → 1</div><div class="l">spreadsheets a ministry programme runs on, redesigned into one workbook</div><div class="s">17 tabs, one source of truth</div></div>
+  </div>
+</div></section>
+
+
+<section id="work"><div class="wrap">
+  <div class="sec-head reveal" style="margin-bottom:0;padding-bottom:28px">
+    <h2>Six projects.</h2>
+    <p>Real screenshots from the running product, numbers I re-checked before publishing, and what my part in it actually was.</p>
+  </div>
+</div>
+
+<!-- 01 PARTYAH -->
+<article class="case" id="partyah"><div class="wrap">
+  <div class="top"><span class="num">01</span><h3>PARTYAH</h3><span class="tag live">Live demo</span><span class="tag">React Native</span></div>
+  <div class="body">
+    <div class="text">
+      <p class="kicker">An Israeli event marketplace. Organisers book DJs, DJs manage gigs, guests walk in with a QR ticket. <b>Hebrew-first, right-to-left, mobile.</b></p>
+      <p class="d">Pre-launch on a live production backend. Every core flow was walked end to end against the real database and logged: phone login, a seven-step event wizard, DJ search and booking, notifications fired by database triggers, door-mode QR scanning, and a public Party Page you can send in a WhatsApp message.</p>
+      <ul class="facts">
+        <li><b>726 tests, 47 suites</b>, re-run the day this page went up</li>
+        <li><b>29 migrations</b> applied to a live PostgreSQL 17</li>
+        <li><b>Row-level security</b> on all 23 tables, advisors driven to zero</li>
+        <li><b>CI gate</b>: typecheck, lint, tests and a gitleaks secret scan</li>
+        <li><b>Scheduled jobs</b>, rate limiting, and an audit trail of every backend action</li>
+        <li><b>Money never guessed</b>: stored in agorot, one integer, no floats</li>
+      </ul>
+      <p class="role"><b>My role:</b> I set the nine rules this codebase obeys, including money as integers and row-level security on every table, and sent back everything that broke one.</p>
+      <div class="links"><a href="https://undergie.github.io/partyah-demo/" target="_blank" rel="noopener">Open the demo</a></div>
+    </div>
+    <div>
+      <div class="phones c4">
+        <div class="phone"><img src="img/partyah_01_login.png" alt="PARTYAH login screen asking who is lifting tonight, with a phone number field" loading="lazy" width="560" height="1214"></div>
+        <div class="phone"><img src="img/partyah_06_partypage.jpg" alt="A public Party Page with the date, host, tags, a Spotify playlist, the DJ's SoundCloud and an RSVP button" loading="lazy" width="560" height="1214"></div>
+        <div class="phone"><img src="img/partyah_02_discover.jpg" alt="The discover screen: party-type and music-genre filters above two upcoming events, each with its date, city, headcount and price" loading="lazy" width="560" height="1214"></div>
+        <div class="phone"><img src="img/partyah_04_tickets.jpg" alt="A ticket: the event, the date, a QR code and a six-character entry code" loading="lazy" width="560" height="1214"></div>
+      </div>
+      <p class="caption">Login · the shareable Party Page · discover · a ticket at the door. Captured from the live demo, on seed data.</p>
+      <div class="beforeafter">
+        <div class="phone"><img src="img/partyah_v12.png" alt="An early PARTYAH prototype with a dark neon design" loading="lazy" width="430" height="932"></div>
+        <p><b>Twelve iterations back</b> it was this: a dark neon prototype with no backend and invented numbers. What is above runs on a real database, with a signed design direction and a door flow that actually scans.</p>
+      </div>
+    </div>
+  </div>
+</div></article>
+
+<!-- 02 SHINOBI -->
+<article class="case flip" id="shinobi"><div class="wrap">
+  <div class="top"><span class="num">02</span><h3>Shinobi Blast</h3><span class="tag live">Play in browser</span><span class="tag">Godot</span></div>
+  <div class="body">
+    <div class="text">
+      <p class="kicker">I wanted to understand what actually keeps people inside a game like Clash Royale or Castle Busters. <b>So I am building one and measuring it.</b></p>
+      <p class="d">The build is the instrument. To ask how a player gets pulled forward, I built the layer that does the pulling: a nine-rank trophy road where the stakes scale to the opponent, daily quests, win chests, a seven-day check-in, a season pass. To ask whether the match underneath holds up, I built a seeded AI-versus-AI harness that reports distributions, and a twenty-match playtest gate I have to pass myself before anything ships.</p>
+      <ul class="facts">
+        <li><b>Godot 4.3</b>, 73 headless test suites, playable in a browser today</li>
+        <li><b>The harness reports distributions</b>, never a single run: after an n=10 "collapse" turned out to be noise, the rule became n≥30 for core metrics</li>
+        <li><b>A measurement rewrote the design</b>: stamping every shot with its target found zero core-aimed shots out of 783</li>
+        <li><b>"It feels stuck" became a number</b>: 47 freezes in a 217-second recording, 75% of the match a still image</li>
+        <li><b>Economy decided before it was coded</b>: three currencies, build timers, and no energy gate on the aim loop</li>
+        <li><b>Honest about what it is not</b>: solo and hotseat only, no netcode yet, and the store is a labelled sandbox</li>
+      </ul>
+      <p class="role"><b>My role:</b> I write the specs, red-pen my own design before it gets built, run the playtests, and decide what ships. Still building it, and I intend to publish it.</p>
+      <div class="links"><a href="https://undergie.github.io/shinobi-blast/" target="_blank" rel="noopener">Play it</a></div>
+    </div>
+    <div class="stack">
+      <div class="wide"><img src="img/shinobi_siege.jpg" alt="A Shinobi Blast battle: a three-floor castle with ninja champions inside, a wind readout and both core health bars" loading="lazy" width="1200" height="675"></div>
+      <div class="row2">
+        <div class="wide"><img src="img/shinobi_dojo.jpg" alt="The dojo between matches: buildings to upgrade, a quest list, four empty chest slots, a login streak and the day-one check-in rewards" loading="lazy" width="1200" height="750"></div>
+        <div class="wide"><img src="img/shinobi_pass.jpg" alt="The season pass tier track: thirty numbered tiers, each with a free reward and a locked premium one, above a countdown to the end of the season" loading="lazy" width="1200" height="750"></div>
+      </div>
+      <p class="caption">The match · the dojo, with its chests, quests and check-in · the season pass tier track, thirty tiers deep. The two smaller screens are the economy I am studying.</p>
+    </div>
+  </div>
+</div></article>
+
+<!-- 03 SHANZIA -->
+<article class="case" id="shanzia"><div class="wrap">
+  <div class="top"><span class="num">03</span><h3>Shani Sound System</h3><span class="tag">iOS · SwiftUI</span><span class="tag">Offline</span></div>
+  <div class="body">
+    <div class="text">
+      <p class="kicker">A birthday gift that grew into <b>an explorable Kingston where every shop opens a different mini-game.</b></p>
+      <p class="d">A live dub studio with four stems where swapping a musician lands on the next bar, hard-mode reggae trivia that explains the answer, a right-to-left crossword engine built from scratch for Hebrew, a vinyl crate to complete, and a Culture Yard wall of legends with freely licensed photographs and story cards.</p>
+      <ul class="facts">
+        <li><b>474 tests, 51 suites</b>, green at the last recorded run</li>
+        <li><b>SwiftUI + SpriteKit + AVAudioEngine</b>, entirely offline</li>
+        <li><b>Bar-accurate audio</b>: a swap waits for the downbeat, it never clips</li>
+        <li><b>Hebrew RTL crossword engine</b> with its own keyboard</li>
+        <li><b>Two languages</b>, every screen, including a verified 175-question Hebrew bank</li>
+        <li><b>Runs on a real iPhone</b>, provenance checked on every push</li>
+      </ul>
+      <p class="role"><b>My role:</b> all of it, from interviewing the person it was made for to the polish pass. It is also my prototype for a personalised-game service: one engine, many theme packs.</p>
+    </div>
+    <div>
+      <div class="phones c4">
+        <div class="phone"><img src="img/shanzia_map.jpg" alt="Pixel-art Kingston map with named landmarks and the player avatar on a path" loading="lazy" width="560" height="1218"></div>
+        <div class="phone"><img src="img/shanzia_stage.jpg" alt="The Stage screen with seven pixel-art musicians that can be swapped live and a crowd meter" loading="lazy" width="560" height="1218"></div>
+        <div class="phone"><img src="img/shanzia_trivia.jpg" alt="An expert reggae trivia question with four answers and an explanation of the correct one" loading="lazy" width="560" height="1212"></div>
+        <div class="phone"><img src="img/shanzia_crate.jpg" alt="The vinyl crate screen showing twenty collected pixel-art record sleeves" loading="lazy" width="560" height="1212"></div>
+      </div>
+      <p class="caption">Kingston · the live band · expert trivia · the vinyl crate. Captured on device.</p>
+    </div>
+  </div>
+</div></article>
+
+<!-- 04 TABIM -->
+<article class="case flip" id="tabim"><div class="wrap">
+  <div class="top"><span class="num">04</span><h3>Tabim</h3><span class="tag">iOS · Audio</span><span class="tag">In build</span></div>
+  <div class="body">
+    <div class="text">
+      <p class="kicker">A guitar teacher that listens. <b>The microphone judges what you actually played, note by note, in time.</b></p>
+      <p class="d">The hard part is not the game around it, it is honesty. A score follower warps the clock to the player instead of demanding the player follow a metronome. A calibration routine measures the device's own latency and repairs itself when it stores nonsense. When a chord is wrong the app says which finger, not just "try again": gold rings are the chord it asked for, blue dots are what it heard you play.</p>
+      <ul class="facts">
+        <li><b>Swift with a C++ audio core</b>, pitch and onset detection on device</li>
+        <li><b>602 tests</b> re-run today: 246 XCTest plus 356 swift-testing cases in 43 suites</li>
+        <li><b>A warped clock</b>: the score follower re-times itself to the player rather than making the player chase a metronome</li>
+        <li><b>A "detection is broken" bug</b> traced to poisoned calibration data, then made self-healing</li>
+        <li><b>Six per-string level meters</b>, so a silent D string is diagnosed rather than just marked wrong</li>
+        <li><b>I am the test subject</b>: I record the takes and write the verdicts</li>
+      </ul>
+      <p class="role"><b>My role:</b> product owner and the guitarist. Every sprint starts from a device-test verdict I wrote after playing it myself.</p>
+    </div>
+    <div class="stack">
+      <div class="wide" style="background:#141822"><img src="img/tabim_highway.jpg" alt="Mid-riff in Tabim: numbered notes travelling down the highway toward the strike line, a hit burst firing, the running score and combo, the live microphone level and a latency readout" loading="lazy" width="1300" height="598"></div>
+      <div class="row2">
+        <div class="phone" style="border-radius:18px"><img src="img/tabim_songs.jpg" alt="The songs library: four public-domain songs, each with its chords marked known or still to learn, its tempo, its strumming pattern and a one-line teaching note" loading="lazy" width="560" height="1218"></div>
+        <div class="phone" style="border-radius:18px"><img src="img/tabim_lessons.jpg" alt="The lessons screen with a mastery ring and a trend line for each of eight chords, and a grid of the chord changes being drilled" loading="lazy" width="560" height="1218"></div>
+      </div>
+      <p class="caption">Mid-riff, with the live latency and microphone readouts · mastery and trend for each of eight chords · the song library. Captured from the running app.</p>
+    </div>
+  </div>
+</div></article>
+
+<!-- 05 FARM -->
+<article class="case" id="farm"><div class="wrap">
+  <div class="top"><span class="num">05</span><h3>The Farm</h3><span class="tag">Consulting</span><span class="tag">Delivered</span></div>
+  <div class="body">
+    <div class="text">
+      <p class="kicker"><b>I worked the branches myself before I proposed anything.</b> The farm had grown for years without a planning layer, and I wanted to see an ordinary day before I drew one.</p>
+      <p class="d">I mapped the branches and how work moves between them, ran the requirements process with the farm head and the teams, and turned it into a diagnosis dashboard for management. Then I built the planning instrument: a work-plan template for the teaching staff, one sheet per school month, where every activity is broken into the same six lines.</p>
+      <ul class="facts">
+        <li><b>Diagnosis dashboard</b>: the operating model, the process maps, an impact-versus-effort matrix</li>
+        <li><b>15-tab work-plan template</b>: a sheet per school month, an action catalogue, an annual summary that builds itself</li>
+        <li><b>Six lines per activity</b>: action, description, quantity, target, people, cost</li>
+        <li><b>Designed to consolidate</b>: each staff member fills their own copy, the copies roll up to the manager's master</li>
+        <li><b>Monday.com against a custom build</b>, both priced, one staged recommendation</li>
+        <li><b>A written methodology</b> so the next engagement starts further along</li>
+      </ul>
+      <p class="role"><b>My role:</b> technology and process consultant, part time, alongside my degree. The lesson I kept: the tooling has to follow the process, especially where the staff are not technical.</p>
+    </div>
+    <div class="stack">
+      <div class="sheet"><img src="img/farm_calendar.jpg" alt="The monthly board: a September wall calendar where each day carries its tasks and the role responsible, with the school holidays marked" loading="lazy" width="1300" height="438"></div>
+      <div class="sheet"><img src="img/farm_matrix.jpg" alt="An impact-versus-effort matrix from the diagnosis dashboard, sorting recommendations into quick wins, planned projects, time fillers and avoid" loading="lazy" width="1250" height="702"></div>
+      <p class="caption">The same month laid out as a calendar · the impact-versus-effort matrix from the diagnosis dashboard.</p>
+    </div>
+  </div>
+  <div class="fullshot">
+    <div class="sheet"><img src="img/farm_gantt.jpg" alt="The September work plan: five colour-banded activity groups, each broken into action, description, quantity, target, people and cost, laid across a column per day with a marker on every day the task runs" loading="lazy" width="1900" height="1219"></div>
+    <p class="caption">One month of the work plan. Each colour band is a branch activity, each column a day, each row one of the six lines every activity has to answer. Hebrew, right to left, filled with example data.</p>
+  </div>
+</div></article>
+
+<!-- 06 KASA -->
+<article class="case flip" id="kasa"><div class="wrap">
+  <div class="top"><span class="num">06</span><h3>Kasa Budget System</h3><span class="tag">Ministry of Health</span><span class="tag">Awaiting sign-off</span></div>
+  <div class="body">
+    <div class="text">
+      <p class="kicker">A national health programme ran its budget across five spreadsheets and seventeen tabs. <b>Ask how much was planned in 2024 and you got four different answers.</b></p>
+      <p class="d">I read every file and mapped the six stations the money passes through: plan, request, approval, contract, execution, report. Each station had quietly grown its own file. The replacement is one workbook where a budget line moves through four money states, tasks count down their own deadlines, and a journal records what was decided and by whom, so the next person in the chair can read the history instead of guessing at it.</p>
+      <ul class="facts">
+        <li><b>Eight tabs, one source of truth</b>, and a dashboard nobody types into</li>
+        <li><b>Four money states</b>: planned, approved, committed, paid</li>
+        <li><b>The number that matters</b>: money committed but not yet paid, the exposure nobody was tracking</li>
+        <li><b>Reports specified as views, not new files</b>: one export per stakeholder, generated from the same rows</li>
+        <li><b>Written for a non-technical director</b>: plain-language spec, flowchart, simulation guide, and a walkthrough script to read to her</li>
+        <li><b>Staged rollout</b>: skeleton, her sign-off, a pilot year, then migrate the history</li>
+      </ul>
+      <p class="role"><b>My role:</b> digital and technology lead on a three-person team, a scholarship position. Adoption is the whole job: the system is only real once the person who owns it trusts it.</p>
+    </div>
+    <div class="stack">
+      <div class="sheet"><img src="img/kasa_dashboard.jpg" alt="The Kasa dashboard: totals for planned, approved, committed and paid, a utilisation percentage, the committed-but-unpaid exposure, and a colour legend for each status" loading="lazy" width="1300" height="725"></div>
+      <div class="sheet"><img src="img/kasa_tasks.jpg" alt="The tasks and alerts tab: each deadline linked to a budget line, with the days remaining computed automatically" loading="lazy" width="1300" height="443"></div>
+      <p class="caption">The dashboard nobody types into · the deadlines, counting themselves down.</p>
+    </div>
+  </div>
+  <div class="fullshot">
+    <div class="sheet"><img src="img/kasa_lines.jpg" alt="The budget-lines tab: one row per budget line with its identifier, programme, year, activity, executing arm and a colour-coded status, followed by the planned, approved, committed and paid columns side by side" loading="lazy" width="1862" height="548"></div>
+    <p class="caption">The heart of it: one row per budget line, the four money states side by side, the status colouring itself. Loaded with a simulated year; the owner column is blanked for this page.</p>
+  </div>
+</div></article>
+</section>
+
+<section class="sec" id="how" style="border-top:1.5px solid var(--ink)"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>How the work actually goes.</h2>
+    <p>Same loop whether it is a farm, a ministry programme or a game. Learn how the place really runs, write it down, build it, then try to break it.</p>
+  </div>
+  <div class="steps reveal">
+    <div class="step"><div class="k">01</div><h3>Work the job first</h3><p>No recommendation before I have stood where the users stand. I want to know what a normal Tuesday looks like before I touch it.</p><div class="ex"><b>The Farm:</b> I worked the branches myself before mapping a single process.</div></div>
+    <div class="step"><div class="k">02</div><h3>Write the spec</h3><p>Plain language, decisions listed, open questions named. A document the least technical person in the room can argue with.</p><div class="ex"><b>Kasa:</b> the spec opens by saying it is a proposal, not a decision.</div></div>
+    <div class="step"><div class="k">03</div><h3>Direct, review, verify</h3><p>The keystrokes are mostly an AI's. The architecture, the review and the responsibility are mine, and nothing lands until I can show it working.</p><div class="ex"><b>Everywhere:</b> a claim is only done once a test, a screenshot or a database query backs it.</div></div>
+    <div class="step"><div class="k">04</div><h3>Measure, then decide</h3><p>When something feels wrong I turn it into a number before I touch it. Opinions lose to a distribution.</p><div class="ex"><b>PARTYAH:</b> 95 smoke checks run against the live backend before a deploy is allowed.</div></div>
+  </div>
+</div></section>
+
+<footer class="foot" id="contact"><div class="wrap">
+  <p class="eyebrow" style="color:inherit;opacity:.55">Contact</p>
+  <h2 style="margin-top:12px">Serious about the work.<br><em>Light about everything else.</em></h2>
+  <p class="sub">If something here is close to a problem you have, write to me. I am a student, I build every week, and I would rather be shown a real problem than a job description.</p>
+  <div class="row">
+    <a class="btn sun" href="mailto:aviandargie@gmail.com">aviandargie@gmail.com</a>
+    <a class="btn" href="https://www.linkedin.com/in/avi-andargie-70417a3a0/" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn" href="https://github.com/underGIE" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <div class="sig"><span>Peace and love for all. Now let's ship something.</span><span>Avi Andargie · Be'er Sheva</span></div>
+</div></footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) { els.forEach(function(e){ e.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+
+</body>
+</html>
