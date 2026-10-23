@@ -7,18 +7,18 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Avi Andargie">
 <meta property="og:title" content="Avi Andargie — I make technology fit the people who use it">
-<meta property="og:description" content="Six things I built: an event marketplace, a castle-siege game, a reggae game, a guitar teacher that listens, a farm's work plan, and a national programme's budget system.">
+<meta property="og:description" content="Six things I built: an event marketplace, a castle-duel game, a reggae game, a guitar teacher that listens, a farm's work plan, and a national programme's budget system. With video from the running builds.">
 <meta property="og:url" content="https://undergie.github.io/">
 <meta property="og:image" content="https://undergie.github.io/img/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Avi Andargie's portfolio: the headline beside screenshots of a party page, a pixel-art map and a castle-siege game">
+<meta property="og:image:alt" content="Avi Andargie's portfolio: the headline beside screenshots of a party page, a pixel-art map and a castle-duel game">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Avi Andargie — I make technology fit the people who use it">
-<meta name="twitter:description" content="Six things I built: an event marketplace, a castle-siege game, a reggae game, a guitar teacher that listens, a farm's work plan, and a national programme's budget system.">
+<meta name="twitter:description" content="Six things I built: an event marketplace, a castle-duel game, a reggae game, a guitar teacher that listens, a farm's work plan, and a national programme's budget system. With video from the running builds.">
 <meta name="twitter:image" content="https://undergie.github.io/img/og.jpg">
 <title>Avi Andargie</title>
-<meta name="description" content="Six things I built: an event marketplace, a castle-siege game, a reggae game, a guitar teacher that listens, a farm's work plan, and a national programme's budget system.">
+<meta name="description" content="Six things I built: an event marketplace, a castle-duel game, a reggae game, a guitar teacher that listens, a farm's work plan, and a national programme's budget system. With video from the running builds.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
@@ -61,25 +61,34 @@ p{margin:0}
 .tab{font-variant-numeric:tabular-nums}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 
+/* scroll progress */
+.prog{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:0 50%;background:var(--accent);z-index:90;will-change:transform}
+
 /* nav */
 .nav{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
 .brand{font-family:var(--display);font-stretch:100%;font-weight:700;font-size:16px;letter-spacing:.01em;text-decoration:none;display:flex;align-items:center;gap:9px}
-.brand i{width:9px;height:9px;background:var(--accent);display:inline-block}
-.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:24px}
-.nav ul a{text-decoration:none;font-size:14.5px;font-weight:500;color:var(--ink2)}
-.nav ul a:hover{color:var(--accent)}
+.brand i{width:9px;height:9px;background:var(--accent);display:inline-block;animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}
+.navright{display:flex;align-items:center;gap:20px}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:22px}
+.nav ul a{text-decoration:none;font-size:14.5px;font-weight:500;color:var(--ink2);position:relative;padding-bottom:2px}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;transition:transform .22s}
+.nav ul a:hover::after,.nav ul a.on::after{transform:scaleX(1)}
+.nav ul a.on{color:var(--ink)}
+.themer{background:none;border:1.5px solid var(--line);color:var(--ink2);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;cursor:pointer;transition:border-color .16s,color .16s}
+.themer:hover{border-color:var(--accent);color:var(--accent)}
 @media (max-width:760px){.nav ul{display:none}}
 
 /* hero */
-.hero{padding:62px 0 0}
-.hero h1{font-weight:800;font-stretch:84%;font-size:clamp(42px,6.8vw,94px);line-height:.96;letter-spacing:-.032em;max-width:17ch;padding-bottom:.04em}
+.hero{padding:62px 0 0;position:relative;overflow:hidden}
+.hero h1{font-weight:800;font-stretch:84%;font-size:clamp(42px,6.8vw,94px);line-height:.96;letter-spacing:-.032em;max-width:17ch;padding-bottom:.04em;position:relative;z-index:2}
 .hero h1 em{font-style:normal;color:var(--accent)}
-.herorow{display:grid;grid-template-columns:minmax(0,54ch) auto;gap:40px;align-items:end;margin-top:26px}
+.herorow{display:grid;grid-template-columns:minmax(0,54ch) auto;gap:40px;align-items:end;margin-top:26px;position:relative;z-index:2}
 .hero .lede{font-size:clamp(16.5px,1.35vw,19.5px);color:var(--ink2)}
 .hero .lede b{color:var(--ink);font-weight:600}
 .cta{display:flex;flex-wrap:wrap;gap:9px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 17px;font-family:var(--body);font-weight:600;font-size:14.5px;text-decoration:none;border:1.5px solid var(--ink);transition:transform .14s,background .14s,color .14s}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 17px;font-family:var(--body);font-weight:600;font-size:14.5px;text-decoration:none;border:1.5px solid var(--ink);background:transparent;color:inherit;cursor:pointer;transition:transform .14s,background .14s,color .14s}
 .btn:hover{transform:translateY(-2px)}
 .btn.primary{background:var(--ink);color:var(--bg)}
 .btn.ghost{background:transparent}
@@ -88,8 +97,25 @@ p{margin:0}
 .up.d1{animation-delay:.06s}.up.d2{animation-delay:.12s}.up.d3{animation-delay:.18s}
 @keyframes rise{from{transform:translateY(13px);opacity:.001}to{transform:none;opacity:1}}
 
+/* moving objects behind the hero */
+.orbs{position:absolute;inset:0;z-index:0;pointer-events:none}
+.orb{position:absolute;will-change:transform;opacity:.5}
+.orb.sq{border:2.5px solid var(--accent);opacity:.3}
+.orb.dot{border-radius:50%;background:var(--accent);opacity:.16}
+.orb.ring{border:2.5px solid var(--sun);border-radius:50%;opacity:.5}
+.orb.bar{background:var(--ink);opacity:.07}
+.o1{width:118px;height:118px;top:6%;right:7%;animation:float1 13s ease-in-out infinite}
+.o2{width:56px;height:56px;top:38%;right:21%;animation:float2 9s ease-in-out infinite}
+.o3{width:184px;height:184px;top:52%;right:3%;animation:float3 17s ease-in-out infinite}
+.o4{width:26px;height:26px;top:17%;right:31%;animation:float2 11s ease-in-out infinite reverse}
+.o5{width:230px;height:10px;top:76%;right:12%;animation:float1 15s ease-in-out infinite reverse}
+@keyframes float1{0%,100%{transform:translate3d(0,0,0) rotate(0)}50%{transform:translate3d(-26px,22px,0) rotate(14deg)}}
+@keyframes float2{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(18px,-26px,0)}}
+@keyframes float3{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(14px,-18px,0) scale(1.12)}}
+@media (max-width:900px){.orbs{opacity:.5}.o1,.o3,.o5{display:none}}
+
 /* index */
-.index{margin-top:46px;border-top:1.5px solid var(--ink);animation:rise .6s cubic-bezier(.2,.8,.2,1) .18s both}
+.index{margin-top:46px;border-top:1.5px solid var(--ink);animation:rise .6s cubic-bezier(.2,.8,.2,1) .18s both;position:relative;z-index:2;background:color-mix(in srgb,var(--bg) 72%,transparent)}
 .idxrow{display:grid;grid-template-columns:2.4rem minmax(0,1fr) 7rem 12rem 9rem;gap:20px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--hair)}
 .index .head{padding:9px 0;border-bottom:1px solid var(--hair)}
 .index .head span{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute)}
@@ -104,13 +130,15 @@ p{margin:0}
 .index .st{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:7px;justify-content:flex-end}
 .index .st i{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block;flex:none}
 .index .st.on{color:var(--live)}
-.avail{display:flex;align-items:center;gap:9px;padding:14px 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--ink2)}
+.index .st.on i{animation:blink 2.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.avail{display:flex;align-items:center;gap:9px;padding:14px 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--ink2);position:relative;z-index:2}
 .avail i{width:7px;height:7px;border-radius:50%;background:var(--live);display:inline-block;flex:none}
 @media (max-width:1080px){.idxrow{grid-template-columns:2.4rem minmax(0,1fr) 12rem 9rem}.index .md{display:none}}
 @media (max-width:720px){.idxrow{grid-template-columns:2rem minmax(0,1fr);row-gap:5px}.index .pf,.index .sth{display:none}.index .st{grid-column:2;justify-content:flex-start}}
 
 /* ticker */
-.ticker{border-block:1.5px solid var(--ink);overflow:hidden;white-space:nowrap;padding:11px 0;margin-top:42px;background:var(--bg2)}
+.ticker{border-block:1.5px solid var(--ink);overflow:hidden;white-space:nowrap;padding:11px 0;margin-top:42px;background:var(--bg2);position:relative;z-index:2}
 .ticker .track{display:inline-flex;gap:32px;animation:scroll 52s linear infinite;padding-right:32px}
 .ticker span{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2)}
 .ticker span::after{content:"/";margin-left:32px;color:var(--mute);opacity:.5}
@@ -132,9 +160,29 @@ p{margin:0}
 .proof .s{font-family:var(--mono);font-size:10.5px;color:var(--mute);margin-top:8px;letter-spacing:.07em;text-transform:uppercase}
 @media (max-width:900px){.proof{grid-template-columns:repeat(2,1fr)}.proof > div{border-bottom:1.5px solid var(--ink)}.proof > div:nth-child(2n){border-right:0}.proof > div:nth-last-child(-n+2){border-bottom:0}}
 
+/* updates */
+#updates{border-top:1.5px solid var(--ink);background:var(--bg2)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;padding:7px 12px;border:1.5px solid var(--line);background:transparent;color:var(--ink2);cursor:pointer;transition:border-color .16s,color .16s,background .16s}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.feed{border-top:1.5px solid var(--ink)}
+.upd{display:grid;grid-template-columns:7.5rem 9rem minmax(0,1fr);gap:24px;padding:20px 0;border-bottom:1px solid var(--hair);align-items:start;transition:opacity .28s,transform .28s,background .16s}
+.upd:hover{background:color-mix(in srgb,var(--accent) 5%,transparent)}
+.upd[hidden]{display:none}
+.upd .date{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--mute);text-transform:uppercase;padding-top:3px}
+.upd .who{font-family:var(--display);font-weight:700;font-stretch:88%;font-size:15px;letter-spacing:-.01em}
+.upd .who a{text-decoration:none;border-bottom:2px solid var(--accent)}
+.upd h3{font-family:var(--body);font-weight:600;font-size:16.5px;letter-spacing:0;line-height:1.4}
+.upd p{color:var(--ink2);font-size:14.5px;margin-top:6px;max-width:72ch}
+.upd .ev{font-family:var(--mono);font-size:11.5px;color:var(--mute);margin-top:9px;letter-spacing:.03em}
+.upd.new .who::after{content:"NEW";font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;background:var(--sun);color:var(--sun-ink);padding:2px 5px;margin-left:8px;vertical-align:2px}
+@media (max-width:860px){.upd{grid-template-columns:1fr;gap:6px}.upd .date{padding-top:0}}
+
 /* how */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--ink);background:var(--bg2)}
-.step{padding:24px;border-right:1.5px solid var(--ink)}
+.step{padding:24px;border-right:1.5px solid var(--ink);transition:background .2s}
+.step:hover{background:color-mix(in srgb,var(--accent) 6%,transparent)}
 .step:last-child{border-right:0}
 .step .k{font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:600;letter-spacing:.12em}
 .step h3{font-size:21px;font-weight:700;font-stretch:100%;line-height:1.2;letter-spacing:-.015em;margin:11px 0 9px}
@@ -151,6 +199,7 @@ p{margin:0}
 .case h3{font-size:clamp(30px,4.4vw,56px);font-weight:800;font-stretch:85%;line-height:1.02;letter-spacing:-.035em}
 .case .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border:1.5px solid var(--line);color:var(--ink2)}
 .case .tag.live{border-color:var(--live);color:var(--live)}
+.case .tag.was{border-style:dashed;color:var(--mute)}
 .case .body{display:grid;grid-template-columns:.92fr 1.08fr;gap:46px;align-items:start;margin-top:20px}
 .case.flip .body{grid-template-columns:1.08fr .92fr}
 .case.flip .body .text{order:2}
@@ -192,6 +241,19 @@ p{margin:0}
 .beforeafter p b{color:var(--ink);font-weight:600}
 @media (max-width:640px){.stack .row2{grid-template-columns:1fr}}
 
+/* video */
+.vidrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.vid{position:relative;border:5px solid var(--bezel);border-radius:22px;overflow:hidden;background:var(--slab);box-shadow:var(--shadow);cursor:pointer;transition:transform .22s}
+.vid:hover{transform:translateY(-7px)}
+.vid video{display:block;width:100%;border-radius:17px}
+.vid.land{border-width:1.5px;border-color:var(--line);border-radius:4px}
+.vid.land video{border-radius:0}
+.vid .badge{position:absolute;left:12px;top:12px;z-index:3;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:color-mix(in srgb,#000 62%,transparent);color:#fff;padding:5px 9px;display:flex;align-items:center;gap:6px;backdrop-filter:blur(6px)}
+.vid .badge i{width:6px;height:6px;border-radius:50%;background:#FF4848;display:inline-block;animation:blink 1.8s ease-in-out infinite}
+.vid .pp{position:absolute;right:12px;bottom:12px;z-index:3;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;background:color-mix(in srgb,#000 62%,transparent);color:#fff;padding:6px 10px;border:0;cursor:pointer;backdrop-filter:blur(6px)}
+.vid .pp:hover{background:var(--accent);color:var(--accent-ink)}
+@media (max-width:640px){.vidrow{grid-template-columns:1fr}}
+
 /* footer */
 .foot{background:var(--slab);color:var(--slab-ink);padding:80px 0 34px;margin-top:20px}
 .foot h2{font-size:clamp(34px,5.8vw,84px);font-weight:800;font-stretch:82%;line-height:.99;letter-spacing:-.038em}
@@ -212,41 +274,53 @@ p{margin:0}
   .up,.index{animation:none}
   .index a{transition:none}
   .index a:hover{padding-inline:0}
-  .ticker .track{animation:none}
+  .ticker .track,.orb,.brand i,.index .st.on i,.vid .badge i{animation:none}
   .reveal{transform:none;transition:none}
   html{scroll-behavior:auto}
-  .phone:hover,.wide:hover,.btn:hover{transform:none}
+  .phone:hover,.wide:hover,.btn:hover,.vid:hover{transform:none}
 }
 </style>
 
-</head>
-<body>
+<div class="prog" id="prog" aria-hidden="true"></div>
+
 <nav class="nav"><div class="wrap">
   <a class="brand" href="#top"><i></i>AVI ANDARGIE</a>
-  <ul>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#how">Approach</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="navright">
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#updates">Updates</a></li>
+      <li><a href="#how">Approach</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="themer" id="themer" type="button" aria-label="Switch colour theme">Theme</button>
+  </div>
 </div></nav>
 
-<header class="hero" id="top"><div class="wrap">
+<header class="hero" id="top">
+<div class="orbs" id="orbs" aria-hidden="true">
+  <span class="orb sq o1" data-depth="26"></span>
+  <span class="orb dot o2" data-depth="48"></span>
+  <span class="orb ring o3" data-depth="16"></span>
+  <span class="orb dot o4" data-depth="62"></span>
+  <span class="orb bar o5" data-depth="34"></span>
+</div>
+<div class="wrap">
   <p class="eyebrow up">Avi Andargie · Industrial Engineering &amp; Management, Ben-Gurion University · Be'er Sheva</p>
   <h1 class="up d1" style="margin-top:18px">I make technology <em>fit</em> the people who use it.</h1>
   <div class="herorow">
-    <p class="lede up d2">Six projects from the past year: two apps, two games, and two organisations I designed new planning and budget systems for. I write the specification and the rules, direct an AI-assisted implementation, then review, debug and verify every line that ships. <b>Every screenshot below is a running build, not a mockup.</b></p>
+    <p class="lede up d2">Six projects from the past year: two apps, two games, and two organisations I designed new planning and budget systems for. I write the specification and the rules, direct an AI-assisted implementation, then review, debug and verify every line that ships. <b>Every screenshot and every clip below is a running build, not a mockup.</b></p>
     <div class="cta up d3">
       <a class="btn primary" href="#work">See the work</a>
+      <a class="btn ghost" href="#updates">Latest updates</a>
       <a class="btn ghost" href="mailto:aviandargie@gmail.com">Email</a>
-      <a class="btn ghost" href="https://www.linkedin.com/in/avi-andargie-70417a3a0/" target="_blank" rel="noopener">LinkedIn</a>
       <a class="btn ghost" href="https://github.com/underGIE" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
 
   <nav class="index" aria-label="Project index">
     <div class="idxrow head"><span>№</span><span>Six projects · one year</span><span class="md">Medium</span><span class="pf">Proof</span><span class="sth">Status</span></div>
-    <a class="idxrow" href="#partyah"><span class="no">01</span><span class="nm">PARTYAH</span><span class="md">Mobile</span><span class="pf">726 tests · 47 suites</span><span class="st on"><i></i>Live demo</span></a>
-    <a class="idxrow" href="#shinobi"><span class="no">02</span><span class="nm">Shinobi Blast</span><span class="md">Game</span><span class="pf">73 headless suites</span><span class="st on"><i></i>Playable</span></a>
+    <a class="idxrow" href="#partyah"><span class="no">01</span><span class="nm">PARTYAH</span><span class="md">Mobile</span><span class="pf">2,265 tests · 133 suites</span><span class="st on"><i></i>Live demo</span></a>
+    <a class="idxrow" href="#bambasti"><span class="no">02</span><span class="nm">BamBasti</span><span class="md">Game</span><span class="pf">151 Godot suites</span><span class="st on"><i></i>Playable</span></a>
     <a class="idxrow" href="#shanzia"><span class="no">03</span><span class="nm">Shani Sound System</span><span class="md">iOS</span><span class="pf">474 tests · 51 suites</span><span class="st"><i></i>On device</span></a>
     <a class="idxrow" href="#tabim"><span class="no">04</span><span class="nm">Tabim</span><span class="md">Audio</span><span class="pf">602 tests · C++ core</span><span class="st"><i></i>In build</span></a>
     <a class="idxrow" href="#farm"><span class="no">05</span><span class="nm">The Farm</span><span class="md">Consulting</span><span class="pf">15-tab work plan</span><span class="st"><i></i>Delivered</span></a>
@@ -262,18 +336,95 @@ p{margin:0}
 
 <section class="sec" style="padding:54px 0 0"><div class="wrap">
   <div class="proof reveal tab">
-    <div><div class="n">1,802</div><div class="l">automated tests across the three tested codebases</div><div class="s">726 + 602 + 474, last run green</div></div>
-    <div><div class="n">29</div><div class="l">database migrations live on a production Postgres</div><div class="s">row-level security on all 23 tables</div></div>
-    <div><div class="n">2</div><div class="l">projects anyone can open right now, no install</div><div class="s">partyah · shinobi blast</div></div>
+    <div><div class="n" data-count="3341" data-sep="1">3,341</div><div class="l">automated tests across the three tested codebases</div><div class="s">2,265 + 602 + 474, last recorded green</div></div>
+    <div><div class="n" data-count="151">151</div><div class="l">Godot test suites green on the game's October baseline</div><div class="s">bambasti · 21 oct</div></div>
+    <div><div class="n" data-count="3">3</div><div class="l">builds anyone can open right now, no install</div><div class="s">partyah · bambasti · shinobi archive</div></div>
     <div><div class="n">5 → 1</div><div class="l">spreadsheets a ministry programme runs on, redesigned into one workbook</div><div class="s">17 tabs, one source of truth</div></div>
   </div>
 </div></section>
 
+<!-- UPDATES -->
+<section class="sec" id="updates"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2>What changed lately.</h2>
+    <p>A build log, not a newsfeed. Every line here is something that shipped into a running build, with the check that proved it. Filter it by project.</p>
+  </div>
+  <div class="chips reveal" id="chips" role="group" aria-label="Filter updates by project">
+    <button class="chip on" data-f="all" type="button">All</button>
+    <button class="chip" data-f="partyah" type="button">PARTYAH</button>
+    <button class="chip" data-f="bambasti" type="button">BamBasti</button>
+    <button class="chip" data-f="shanzia" type="button">Shani Sound System</button>
+    <button class="chip" data-f="tabim" type="button">Tabim</button>
+  </div>
+  <div class="feed reveal" id="feed">
+
+    <article class="upd new" data-p="partyah">
+      <div class="date">22 Oct 2026</div>
+      <div class="who"><a href="#partyah">PARTYAH</a></div>
+      <div>
+        <h3>The organiser side of the product, end to end</h3>
+        <p>Eight slices from a locked scope: one price per person, one lead guest, one QR for the group, approval that reserves capacity the moment it is granted. Manual cancellation, refund and correction are atomic, with revision and replay guards. Charging stays switched off until the payment provider's own evidence is complete — a browser return URL never authorises entry.</p>
+        <p class="ev">Evidence: 2,265 tests in 133 suites passed · end-to-end gates closed on real independent PostgreSQL connections (competing approvals at capacity, duplicate payment notification, refund versus scan in both orderings, revoked credential, repeat scan)</p>
+      </div>
+    </article>
+
+    <article class="upd new" data-p="bambasti">
+      <div class="date">21 Oct 2026</div>
+      <div class="who"><a href="#bambasti">BamBasti</a></div>
+      <div>
+        <h3>Shinobi Blast became BamBasti, and it went playable from a link</h3>
+        <p>The turn-based castle duel grew into a two-lane kingdom raid: six roles on an energy budget, a keep you rebuild between raids, a world journey, a league trail and court cosmetics. An illustrated welcome guide, a replayable "how to play", and manual cloud checkpoints across five save domains with compare-and-swap conflict protection and rollback if a restore is interrupted.</p>
+        <p class="ev">Evidence: 36 recovery and activity checks passed · two anonymous guest clients finished a real hosted match, 34 requests, a 24-second core victory, a mutual rematch · 151/151 Godot baseline</p>
+      </div>
+    </article>
+
+    <article class="upd" data-p="bambasti">
+      <div class="date">21 Oct 2026</div>
+      <div class="who"><a href="#bambasti">BamBasti</a></div>
+      <div>
+        <h3>Progress that cannot be overwritten, and fighters that look alive</h3>
+        <p>I reproduced the bug first: a rejected save being quietly overwritten by a colour choice. The fix protects earned progress before any new monetisation feature gets built. In the same week all eight fighters got staggered idle motion and role-specific anticipation, release and recovery — without ever animating the markers a player reads to make a decision.</p>
+        <p class="ev">Evidence: 151/151 baseline, 72 new progress-protection checks, a 75,626-check anchor suite for the motion pass, native portrait and landscape captures</p>
+      </div>
+    </article>
+
+    <article class="upd" data-p="partyah">
+      <div class="date">19 Oct 2026</div>
+      <div class="who"><a href="#partyah">PARTYAH</a></div>
+      <div>
+        <h3>A waitlist that does not lie, and a look that is not all yellow</h3>
+        <p>The managed waitlist separates being promoted from being approved, so nobody is told they are in before capacity actually exists. The visual direction moved off the neon: paper as the ground, yellow kept as the signature rather than the surface.</p>
+        <p class="ev">Evidence: migration applied on the managed track · promote and approve exercised as separate states</p>
+      </div>
+    </article>
+
+    <article class="upd" data-p="shanzia">
+      <div class="date">12 Sep 2026</div>
+      <div class="who"><a href="#shanzia">Shani Sound System</a></div>
+      <div>
+        <h3>An opening, a jukebox and a language pass — on a real iPhone</h3>
+        <p>The game got a proper intro, a jukebox of twelve original tracks, and a full pass over both languages so no screen falls back to the wrong one. It runs on the device it was made for, which was always the point: it is a birthday gift that turned into a prototype for one engine with many theme packs.</p>
+        <p class="ev">Evidence: merged and green at the recorded run · installed and played on device</p>
+      </div>
+    </article>
+
+    <article class="upd" data-p="tabim">
+      <div class="date">8 Sep 2026</div>
+      <div class="who"><a href="#tabim">Tabim</a></div>
+      <div>
+        <h3>The score was wrong about the player, not the player about the chord</h3>
+        <p>A 50% score traced back to transcription recall rather than to the playing: the detector was being graded against the wrong expectation. Fingertip dots and a trail went in so a missed chord says which finger, and the landscape chrome got big enough to read mid-song. One build on the phone, and a device-test verdict written after playing it.</p>
+        <p class="ev">Evidence: 602 tests, 246 XCTest plus 356 swift-testing cases · device test logged the same day</p>
+      </div>
+    </article>
+
+  </div>
+</div></section>
 
 <section id="work"><div class="wrap">
   <div class="sec-head reveal" style="margin-bottom:0;padding-bottom:28px">
     <h2>Six projects.</h2>
-    <p>Real screenshots from the running product, numbers I re-checked before publishing, and what my part in it actually was.</p>
+    <p>Real screenshots and real recordings from the running product, numbers I re-checked before publishing, and what my part in it actually was.</p>
   </div>
 </div>
 
@@ -283,20 +434,26 @@ p{margin:0}
   <div class="body">
     <div class="text">
       <p class="kicker">An Israeli event marketplace. Organisers book DJs, DJs manage gigs, guests walk in with a QR ticket. <b>Hebrew-first, right-to-left, mobile.</b></p>
-      <p class="d">Pre-launch on a live production backend. Every core flow was walked end to end against the real database and logged: phone login, a seven-step event wizard, DJ search and booking, notifications fired by database triggers, door-mode QR scanning, and a public Party Page you can send in a WhatsApp message.</p>
+      <p class="d">Pre-launch on a live production backend. Every core flow was walked end to end against the real database and logged: phone login, a seven-step event wizard, DJ search and booking, notifications fired by database triggers, door-mode QR scanning, and a public Party Page you can send in a WhatsApp message. The organiser side landed in October: one price per person, one lead guest, one QR for the group, and an approval that reserves capacity immediately.</p>
       <ul class="facts">
-        <li><b>726 tests, 47 suites</b>, re-run the day this page went up</li>
+        <li><b>2,265 tests, 133 suites</b>, passed on the October organiser snapshot</li>
         <li><b>29 migrations</b> applied to a live PostgreSQL 17</li>
         <li><b>Row-level security</b> on all 23 tables, advisors driven to zero</li>
+        <li><b>Gates proven on real Postgres</b>: competing approvals at capacity, duplicate payment notifications, refund versus scan in both orderings</li>
         <li><b>CI gate</b>: typecheck, lint, tests and a gitleaks secret scan</li>
-        <li><b>Scheduled jobs</b>, rate limiting, and an audit trail of every backend action</li>
-        <li><b>Money never guessed</b>: stored in agorot, one integer, no floats</li>
+        <li><b>Money never guessed</b>: stored in agorot, one integer, no floats — and charging stays disabled until the provider evidence is complete</li>
       </ul>
       <p class="role"><b>My role:</b> I set the nine rules this codebase obeys, including money as integers and row-level security on every table, and sent back everything that broke one.</p>
       <div class="links"><a href="https://undergie.github.io/partyah-demo/" target="_blank" rel="noopener">Open the demo</a></div>
     </div>
     <div>
-      <div class="phones c4">
+      <div class="vid" data-vid>
+        <span class="badge"><i></i>Recorded on device</span>
+        <video src="video/partyah_door.mp4" poster="img/partyah_door_poster.jpg" muted loop playsinline preload="none" width="540" height="930" aria-label="Door mode in PARTYAH: the gate screen counts who has entered, the camera opens on the QR code and the twelve-character entry code can be typed instead"></video>
+        <button class="pp" type="button">Pause</button>
+      </div>
+      <p class="caption">Door mode, recorded on the phone: the gate counts who is in, the camera reads the ticket, and there is a typed code for when the camera will not cooperate at 1am.</p>
+      <div class="phones c4" style="margin-top:16px">
         <div class="phone"><img src="img/partyah_01_login.png" alt="PARTYAH login screen asking who is lifting tonight, with a phone number field" loading="lazy" width="560" height="1214"></div>
         <div class="phone"><img src="img/partyah_06_partypage.jpg" alt="A public Party Page with the date, host, tags, a Spotify playlist, the DJ's SoundCloud and an RSVP button" loading="lazy" width="560" height="1214"></div>
         <div class="phone"><img src="img/partyah_02_discover.jpg" alt="The discover screen: party-type and music-genre filters above two upcoming events, each with its date, city, headcount and price" loading="lazy" width="560" height="1214"></div>
@@ -311,31 +468,50 @@ p{margin:0}
   </div>
 </div></article>
 
-<!-- 02 SHINOBI -->
-<article class="case flip" id="shinobi"><div class="wrap">
-  <div class="top"><span class="num">02</span><h3>Shinobi Blast</h3><span class="tag live">Play in browser</span><span class="tag">Godot</span></div>
+<!-- 02 BAMBASTI -->
+<article class="case flip" id="bambasti"><div class="wrap">
+  <div class="top"><span class="num">02</span><h3>BamBasti</h3><span class="tag live">Play in browser</span><span class="tag">Godot</span><span class="tag was">was Shinobi Blast</span></div>
   <div class="body">
     <div class="text">
-      <p class="kicker">I wanted to understand what actually keeps people inside a game like Clash Royale or Castle Busters. <b>So I am building one and measuring it.</b></p>
-      <p class="d">The build is the instrument. To ask how a player gets pulled forward, I built the layer that does the pulling: a nine-rank trophy road where the stakes scale to the opponent, daily quests, win chests, a seven-day check-in, a season pass. To ask whether the match underneath holds up, I built a seeded AI-versus-AI harness that reports distributions, and a twenty-match playtest gate I have to pass myself before anything ships.</p>
+      <p class="kicker">I wanted to understand what actually keeps people inside a game like Clash Royale. <b>So I am building one and measuring it.</b></p>
+      <p class="d">It started as Shinobi Blast, a turn-based castle duel. It is now BamBasti: two lanes, six roles on an energy budget, and a kingdom you rebuild between raids. Around the match sits the layer I am actually studying — a world journey, a league trail, court cosmetics, a story that gives the raids a reason. The build is the instrument: if I want to ask what pulls a player forward, I have to build the thing that pulls.</p>
       <ul class="facts">
-        <li><b>Godot 4.3</b>, 73 headless test suites, playable in a browser today</li>
-        <li><b>The harness reports distributions</b>, never a single run: after an n=10 "collapse" turned out to be noise, the rule became n≥30 for core metrics</li>
-        <li><b>A measurement rewrote the design</b>: stamping every shot with its target found zero core-aimed shots out of 783</li>
-        <li><b>"It feels stuck" became a number</b>: 47 freezes in a 217-second recording, 75% of the match a still image</li>
-        <li><b>Economy decided before it was coded</b>: three currencies, build timers, and no energy gate on the aim loop</li>
-        <li><b>Honest about what it is not</b>: solo and hotseat only, no netcode yet, and the store is a labelled sandbox</li>
+        <li><b>Godot 4.3</b>, exported to the web — it opens from a link, no install</li>
+        <li><b>151 Godot suites green</b> on the October baseline, with focused suites on top of it per release</li>
+        <li><b>Two anonymous guests finished a real hosted match</b>: 34 requests, a 24-second core victory, a mutual rematch</li>
+        <li><b>Saves that survive me</b>: manual cloud checkpoints across five save domains, compare-and-swap conflict protection, rollback on an interrupted restore — 36 checks</li>
+        <li><b>A measurement rewrote the design once already</b>: stamping every shot with its target found zero core-aimed shots out of 783</li>
+        <li><b>Honest about what it is not</b>: manual backups rather than live sync, no ranked leaderboard, no production billing, and the store is a labelled sandbox</li>
       </ul>
       <p class="role"><b>My role:</b> I write the specs, red-pen my own design before it gets built, run the playtests, and decide what ships. Still building it, and I intend to publish it.</p>
-      <div class="links"><a href="https://undergie.github.io/shinobi-blast/" target="_blank" rel="noopener">Play it</a></div>
+      <div class="links">
+        <a href="https://bambasti-castle-trial.mossy-dove-8353.chatgpt.site" target="_blank" rel="noopener">Play BamBasti</a>
+        <a href="https://undergie.github.io/shinobi-blast/" target="_blank" rel="noopener">The older Shinobi Blast build</a>
+      </div>
     </div>
     <div class="stack">
-      <div class="wide"><img src="img/shinobi_siege.jpg" alt="A Shinobi Blast battle: a three-floor castle with ninja champions inside, a wind readout and both core health bars" loading="lazy" width="1200" height="675"></div>
-      <div class="row2">
-        <div class="wide"><img src="img/shinobi_dojo.jpg" alt="The dojo between matches: buildings to upgrade, a quest list, four empty chest slots, a login streak and the day-one check-in rewards" loading="lazy" width="1200" height="750"></div>
-        <div class="wide"><img src="img/shinobi_pass.jpg" alt="The season pass tier track: thirty numbered tiers, each with a free reward and a locked premium one, above a countdown to the end of the season" loading="lazy" width="1200" height="750"></div>
+      <div class="vidrow">
+        <div class="vid" data-vid>
+          <span class="badge"><i></i>Recorded on device</span>
+          <video src="video/bambasti_battle.mp4" poster="img/bambasti_battle_poster.jpg" muted loop playsinline preload="none" width="540" height="930" aria-label="A BamBasti raid: cards are deployed into two lanes against a rival keep while both heart bars move"></video>
+          <button class="pp" type="button">Pause</button>
+        </div>
+        <div class="vid" data-vid>
+          <span class="badge"><i></i>Recorded on device</span>
+          <video src="video/bambasti_kingdom.mp4" poster="img/bambasti_kingdom_poster.jpg" muted loop playsinline preload="none" width="540" height="930" aria-label="The BamBasti kingdom between raids: buildings with levels, builders at work, and an upgrade panel for the sanctum"></video>
+          <button class="pp" type="button">Pause</button>
+        </div>
       </div>
-      <p class="caption">The match · the dojo, with its chests, quests and check-in · the season pass tier track, thirty tiers deep. The two smaller screens are the economy I am studying.</p>
+      <p class="caption">The raid, and the kingdom it pays for. Both recorded from the live web build on a phone.</p>
+      <div class="row2">
+        <div class="wide"><img src="img/bambasti_roles.jpg" alt="A BamBasti lane battle with the six role cards along the bottom, each with its energy cost, and an objective line reading roles three of three" loading="lazy" width="760" height="1308"></div>
+        <div class="wide"><img src="img/bambasti_raid.jpg" alt="A raid in progress: both lanes cleared, the turn clock running and the rival heart bar dropping" loading="lazy" width="760" height="1308"></div>
+      </div>
+      <div class="row2">
+        <div class="wide"><img src="img/bambasti_accord.jpg" alt="The Lantern Accord story screen, chapter three of three, explaining why the three courts rebuild the bridges together" loading="lazy" width="760" height="1308"></div>
+        <div class="wide"><img src="img/bambasti_court.jpg" alt="The cosmetics screen: court styles and awnings, each marked equipped, owned or free, with a preview of the keep above" loading="lazy" width="760" height="1308"></div>
+      </div>
+      <p class="caption">Six roles on an energy budget · a raid down to the last lane · the story that frames the journey · court cosmetics, which are decoration and never power.</p>
     </div>
   </div>
 </div></article>
@@ -346,7 +522,7 @@ p{margin:0}
   <div class="body">
     <div class="text">
       <p class="kicker">A birthday gift that grew into <b>an explorable Kingston where every shop opens a different mini-game.</b></p>
-      <p class="d">A live dub studio with four stems where swapping a musician lands on the next bar, hard-mode reggae trivia that explains the answer, a right-to-left crossword engine built from scratch for Hebrew, a vinyl crate to complete, and a Culture Yard wall of legends with freely licensed photographs and story cards.</p>
+      <p class="d">A live dub studio with four stems where swapping a musician lands on the next bar, hard-mode reggae trivia that explains the answer, a right-to-left crossword engine built from scratch for Hebrew, a vinyl crate to complete, and a Culture Yard wall of legends with freely licensed photographs and story cards. September added an opening, a jukebox of twelve original tracks and a pass over both languages.</p>
       <ul class="facts">
         <li><b>474 tests, 51 suites</b>, green at the last recorded run</li>
         <li><b>SwiftUI + SpriteKit + AVAudioEngine</b>, entirely offline</li>
@@ -378,21 +554,26 @@ p{margin:0}
       <p class="d">The hard part is not the game around it, it is honesty. A score follower warps the clock to the player instead of demanding the player follow a metronome. A calibration routine measures the device's own latency and repairs itself when it stores nonsense. When a chord is wrong the app says which finger, not just "try again": gold rings are the chord it asked for, blue dots are what it heard you play.</p>
       <ul class="facts">
         <li><b>Swift with a C++ audio core</b>, pitch and onset detection on device</li>
-        <li><b>602 tests</b> re-run today: 246 XCTest plus 356 swift-testing cases in 43 suites</li>
+        <li><b>602 tests</b>: 246 XCTest plus 356 swift-testing cases in 43 suites</li>
         <li><b>A warped clock</b>: the score follower re-times itself to the player rather than making the player chase a metronome</li>
         <li><b>A "detection is broken" bug</b> traced to poisoned calibration data, then made self-healing</li>
-        <li><b>Six per-string level meters</b>, so a silent D string is diagnosed rather than just marked wrong</li>
+        <li><b>A 50% score was the grader's fault</b>, not the player's: transcription recall, fixed at the expectation rather than the detector</li>
         <li><b>I am the test subject</b>: I record the takes and write the verdicts</li>
       </ul>
       <p class="role"><b>My role:</b> product owner and the guitarist. Every sprint starts from a device-test verdict I wrote after playing it myself.</p>
     </div>
     <div class="stack">
-      <div class="wide" style="background:#141822"><img src="img/tabim_highway.jpg" alt="Mid-riff in Tabim: numbered notes travelling down the highway toward the strike line, a hit burst firing, the running score and combo, the live microphone level and a latency readout" loading="lazy" width="1300" height="598"></div>
-      <div class="row2">
-        <div class="phone" style="border-radius:18px"><img src="img/tabim_songs.jpg" alt="The songs library: four public-domain songs, each with its chords marked known or still to learn, its tempo, its strumming pattern and a one-line teaching note" loading="lazy" width="560" height="1218"></div>
+      <div class="vidrow">
+        <div class="vid" data-vid>
+          <span class="badge"><i></i>Recorded on device</span>
+          <video src="video/tabim_riff.mp4" poster="img/tabim_riff_poster.jpg" muted loop playsinline preload="none" width="540" height="1096" aria-label="A riff running in Tabim: numbered notes travel down the highway to the strike line while the score climbs"></video>
+          <button class="pp" type="button">Pause</button>
+        </div>
         <div class="phone" style="border-radius:18px"><img src="img/tabim_lessons.jpg" alt="The lessons screen with a mastery ring and a trend line for each of eight chords, and a grid of the chord changes being drilled" loading="lazy" width="560" height="1218"></div>
       </div>
-      <p class="caption">Mid-riff, with the live latency and microphone readouts · mastery and trend for each of eight chords · the song library. Captured from the running app.</p>
+      <p class="caption">A riff played on the phone, scored as it goes · mastery and trend for each of eight chords.</p>
+      <div class="wide" style="background:#141822"><img src="img/tabim_highway.jpg" alt="Mid-riff in Tabim: numbered notes travelling down the highway toward the strike line, a hit burst firing, the running score and combo, the live microphone level and a latency readout" loading="lazy" width="1300" height="598"></div>
+      <p class="caption">The same highway in landscape, with the live latency and microphone readouts.</p>
     </div>
   </div>
 </div></article>
@@ -465,7 +646,7 @@ p{margin:0}
     <div class="step"><div class="k">01</div><h3>Work the job first</h3><p>No recommendation before I have stood where the users stand. I want to know what a normal Tuesday looks like before I touch it.</p><div class="ex"><b>The Farm:</b> I worked the branches myself before mapping a single process.</div></div>
     <div class="step"><div class="k">02</div><h3>Write the spec</h3><p>Plain language, decisions listed, open questions named. A document the least technical person in the room can argue with.</p><div class="ex"><b>The budget system:</b> the spec opens by saying it is a proposal, not a decision.</div></div>
     <div class="step"><div class="k">03</div><h3>Direct, review, verify</h3><p>The keystrokes are mostly an AI's. The architecture, the review and the responsibility are mine, and nothing lands until I can show it working.</p><div class="ex"><b>Everywhere:</b> a claim is only done once a test, a screenshot or a database query backs it.</div></div>
-    <div class="step"><div class="k">04</div><h3>Measure, then decide</h3><p>When something feels wrong I turn it into a number before I touch it. Opinions lose to a distribution.</p><div class="ex"><b>PARTYAH:</b> 95 smoke checks run against the live backend before a deploy is allowed.</div></div>
+    <div class="step"><div class="k">04</div><h3>Measure, then decide</h3><p>When something feels wrong I turn it into a number before I touch it. Opinions lose to a distribution.</p><div class="ex"><b>BamBasti:</b> "it feels stuck" became 47 freezes in a 217-second recording.</div></div>
   </div>
 </div></section>
 
@@ -486,14 +667,130 @@ p{margin:0}
 <script>
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* reveal on scroll */
   var els = document.querySelectorAll('.reveal');
-  if (reduce || !('IntersectionObserver' in window)) { els.forEach(function(e){ e.classList.add('in'); }); return; }
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(en){ if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
-  }, { rootMargin: '0px 0px -8% 0px' });
-  els.forEach(function(e){ io.observe(e); });
+  if (reduce || !('IntersectionObserver' in window)) { els.forEach(function(e){ e.classList.add('in'); }); }
+  else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function(e){ io.observe(e); });
+  }
+
+  /* scroll progress */
+  var prog = document.getElementById('prog'), ticking = false;
+  function drawProg(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, window.scrollY / h) : 0) + ')';
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){ if (!ticking) { ticking = true; requestAnimationFrame(drawProg); } }, {passive:true});
+  drawProg();
+
+  /* count up the proof numbers */
+  var nums = document.querySelectorAll('[data-count]');
+  function fmt(n, sep){ return sep ? n.toLocaleString('en-US') : String(n); }
+  if (reduce || !('IntersectionObserver' in window)) {
+    nums.forEach(function(el){ el.textContent = fmt(+el.getAttribute('data-count'), el.getAttribute('data-sep')); });
+  } else {
+    var nio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var el = en.target, target = +el.getAttribute('data-count'), sep = el.getAttribute('data-sep'), t0 = 0;
+        nio.unobserve(el);
+        function step(ts){
+          if (!t0) t0 = ts;
+          var k = Math.min(1, (ts - t0) / 1100), e = 1 - Math.pow(1 - k, 3);
+          el.textContent = fmt(Math.round(target * e), sep);
+          if (k < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: .6 });
+    nums.forEach(function(el){ el.textContent = fmt(0, el.getAttribute('data-sep')); nio.observe(el); });
+  }
+
+  /* videos: play when seen, pause when not, click to toggle */
+  var cards = document.querySelectorAll('[data-vid]');
+  cards.forEach(function(card){
+    var v = card.querySelector('video'), btn = card.querySelector('.pp'), manual = false;
+    function label(){ btn.textContent = v.paused ? 'Play' : 'Pause'; }
+    function toggle(e){
+      e.preventDefault(); e.stopPropagation(); manual = true;
+      if (v.paused) { v.play().catch(function(){}); } else { v.pause(); }
+      label();
+    }
+    btn.addEventListener('click', toggle);
+    card.addEventListener('click', toggle);
+    v.addEventListener('play', label); v.addEventListener('pause', label);
+    if (reduce || !('IntersectionObserver' in window)) { v.preload = 'metadata'; label(); return; }
+    var vio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { if (!manual) { v.preload = 'auto'; v.play().catch(function(){}); } }
+        else { v.pause(); manual = false; }
+        label();
+      });
+    }, { threshold: .35 });
+    vio.observe(card);
+  });
+
+  /* update feed filter */
+  var chips = document.querySelectorAll('.chip'), feed = document.getElementById('feed');
+  chips.forEach(function(c){
+    c.addEventListener('click', function(){
+      var f = c.getAttribute('data-f');
+      chips.forEach(function(o){ o.classList.toggle('on', o === c); });
+      feed.querySelectorAll('.upd').forEach(function(u){
+        u.hidden = !(f === 'all' || u.getAttribute('data-p') === f);
+      });
+    });
+  });
+
+  /* theme toggle */
+  var themer = document.getElementById('themer'), root = document.documentElement;
+  function stored(){ try { return localStorage.getItem('avi-theme'); } catch (e) { return null; } }
+  var saved = stored();
+  if (saved) root.setAttribute('data-theme', saved);
+  themer.addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark' ||
+      (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = dark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('avi-theme', next); } catch (e) {}
+  });
+
+  /* nav section highlight */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav ul a'));
+  var targets = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if ('IntersectionObserver' in window && targets.length) {
+    var sio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id); });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    targets.forEach(function(t){ sio.observe(t); });
+  }
+
+  /* hero objects follow the pointer a little */
+  var orbs = document.querySelectorAll('.orb');
+  if (!reduce && window.matchMedia('(hover:hover)').matches) {
+    var px = 0, py = 0, pending = false;
+    function move(){
+      orbs.forEach(function(o){
+        var d = +o.getAttribute('data-depth') / 1000;
+        o.style.translate = (px * d * 100).toFixed(1) + 'px ' + (py * d * 100).toFixed(1) + 'px';
+      });
+      pending = false;
+    }
+    window.addEventListener('pointermove', function(e){
+      px = (e.clientX / window.innerWidth) - .5;
+      py = (e.clientY / window.innerHeight) - .5;
+      if (!pending) { pending = true; requestAnimationFrame(move); }
+    }, {passive:true});
+  }
 })();
 </script>
-
 </body>
 </html>
